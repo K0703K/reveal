@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <link href="css/reveal.min.css" rel="stylesheet">
+    <link id="theme" href="css/theme/black.css" rel="stylesheet">
+    <!-- For syntax highlighting-->
+    <link href="lib/css/zenburn.css" rel="stylesheet">
+    <!-- Printing and PDF export-->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+      
+    </script>
+    <script src="js/coffee-script.js"></script>
+    <!-- css-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>AWS移行してみたけどぶっちゃけどうよ。</h1>
+          <h3>株式会社レコチョク</h3>
+          <p>近藤　圭太</p>
+        </section>
+        <section>
+          <h2>アジェンダ</h2>
+          <div class="fragment">・自己紹介</div>
+          <div class="fragment">・AWSって</div>
+          <div class="fragment">・移行するにあたって</div>
+          <div class="fragment">・使ってみて思うこと</div>
+        </section>
+        <section>
+          <h2>■自己紹介</h2>
+          <div class="fragment">
+             
+            株式会社レコチョク事業システム推進部<br>システムアーキテクトグループ<br>グループ長
+          </div>
+          <div class="fragment">主にJavaでWebアプリケーションを構築<br>検索エンジンの内製<br>AWS移行<br>マネージメントを少々<br>最近はnode.js、Goに興味を持つ</div>
+        </section>
+        <section>
+          <h2>■AWSって</h2>
+          <ul>こちらをご覧ください</ul>
+          <div class="fragment"><a href="https://aws.amazon.com/jp/" target=_blank>https://aws.amazon.com/jp/</a></div>
+        </section>
+        <section>
+          <h2>■移行するにあたって</h2>
+          <div class="fragment">どんなシステムを持っていったのか</div>
+          <div class="fragment">様々な音楽配信サービスのバックエンドシステム</div>
+          <div class="fragment">例えば</div>
+          <div class="fragment">楽曲検索、会員管理、決済処理を行うシステム</div>
+        </section>
+        <section>
+          <p>
+            画像
+            これとかこれとかこれ
+          </p>
+        </section>
+        <section>
+          <h1>現在</h1>
+        </section>
+        <section>
+          <h1>EC2</h1>
+          <h1>444</h1>
+        </section>
+        <section>
+          <h1>結論</h1>
+        </section>
+        <section>
+          <h1>やってよかった</h1>
+        </section>
+        <section>
+          <h1>ご清聴ありがとうございました。</h1>
+        </section>
+      </div>
+    </div>
+    <!-- script-->
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script type="text/coffeescript">
+      Reveal.initialize
+        controls: true
+        progress: true
+        history: true
+        center: true
+        
+        theme: Reveal.getQueryHash().theme # available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition or "default" # default/cube/page/concave/zoom/linear/fade/none
+        # Optional libraries used to extend on reveal.js
+        dependencies: [
+          {
+            src: "lib/js/classList.js",
+            condition: -> not document.body.classList
+          }
+          {
+            src: "plugin/markdown/marked.js"
+            condition: -> !!document.querySelector("[data-markdown]")
+          }
+          {
+            src: "plugin/markdown/markdown.js"
+            condition: -> !!document.querySelector("[data-markdown]")
+          }
+          {
+            src: "plugin/highlight/highlight.js"
+            async: true
+            callback: -> hljs.initHighlightingOnLoad()
+          }
+          {
+            src: "plugin/zoom-js/zoom.js"
+            async: true
+            condition: -> !!document.body.classList
+          }
+          {
+            src: "plugin/notes/notes.js"
+            async: true
+            condition: -> !!document.body.classList
+          }
+        ]
+    </script>
+  </body>
+</html>

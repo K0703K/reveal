@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    include ./_head
+    // css
+    block head
+  body
+    .reveal
+      .slides
+        block content
+    // script
+    include ./_reveal
+    
+    block script
+

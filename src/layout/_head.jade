@@ -1,0 +1,22 @@
+meta(charset='utf-8')
+title= title
+
+meta(content='yes', name='apple-mobile-web-app-capable')
+meta(content='black-translucent', name='apple-mobile-web-app-status-bar-style')
+meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name='viewport')
+
+link(href='css/reveal.min.css', rel='stylesheet')
+link#theme(href='css/theme/black.css', rel='stylesheet')
+
+// For syntax highlighting
+link(href='lib/css/zenburn.css', rel='stylesheet')
+
+// Printing and PDF export
+script.
+  var link = document.createElement( 'link' );
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+  document.getElementsByTagName( 'head' )[0].appendChild( link );
+
+script(src='js/coffee-script.js')

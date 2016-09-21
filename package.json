@@ -1,0 +1,12 @@
+{
+  "name": "revealjs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "aaa",
+  "main": "",
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0"
+  }
+}

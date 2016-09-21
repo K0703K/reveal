@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <link href="css/reveal.min.css" rel="stylesheet">
+    <link id="theme" href="css/theme/black.css" rel="stylesheet">
+    <!-- For syntax highlighting-->
+    <link href="lib/css/zenburn.css" rel="stylesheet">
+    <!-- Printing and PDF export-->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+      
+    </script>
+    <script src="js/coffee-script.js"></script>
+    <!-- css-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>git運用ガイドライン</h1>
+        </section>
+        <section>
+          <h2>■ねらい</h2>
+          <ul>
+            <div class="fragment">gitでうまくやるための方針です。</div>
+            <div class="fragment">主にメインラインパターンの説明です。</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■バージョン管理ってなんだっけ？</h2>
+          <ul>
+            <div class="fragment">SCM→ソースコードマネージメント</div>
+            <div class="fragment">VCS→バージョン管理システム</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■gitより昔のおさらい</h2>
+        </section>
+        <section>
+          <h2>■バージョン管理ツールがないと</h2>
+          <ul>
+            <div class="fragment">変更前をコメントアウトして残すということが行われる</div>
+            <div class="fragment">きんじれい</div>
+            <pre class="fragment"><code data-trim contenteditable class="hljs">// 上記対応により、位置にズレが生じたため、それのオフセット
+//2014.10.15 RO UPD ↓W連絡票-140821-高木04.xls
+//var thirdLevMenuLeftOffset = 5;
+var thirdLevMenuLeftOffset = 0;
+//2014.10.15 RO UPD ↑
+</code></pre>
+            <div class="fragment">たまにバージョン管理をしているのにやっているケースがある。<br>(社内でもありました。)</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■Revision Control System</h2>
+          <ul>
+            <div class="fragment">・個人向け</div>
+            <div class="fragment">・バージョン管理はファイル単位</div>
+            <div class="fragment">・プロジェクト全体を管理するといった概念はない</div>
+            <div class="fragment">・複数ユーザーの同時作業を想定していない</div>
+          </ul>
+          <h3 class="fragment">・いわゆるWindows標準の<br>「以前のバージョン」</h3>
+        </section>
+        <section>
+          <h2>■Concurrent Versions System</h2>
+          <ul>
+            <div class="fragment">・CVSは元々、単一のファイルを対象としたバージョン管理ツールであるRCSの上に作られていた</div>
+            <div class="fragment">・Windowsの履歴管理のように一つのファイルの履歴を管理することが目的</div>
+            <div class="fragment">・ファイル名の変更削除、ディレクトリ名の変更削除をうまく扱えない</div>
+            <div class="fragment">・異なる文字コード（JIS/SJIS/EUC）に対するサポートがない</div>
+            <div class="fragment">・基本的に個々のファイルの履歴はわかるが、リポジトリの履歴は簡単には知ることができない</div>
+          </ul>
+        </section>
+        <section>
+          <ul>・バイナリーファイルの扱いが下手で、リポジトリサイズの増大につながる
+            <div class="fragment">・分散リポジトリをサポートしない。ネットワーク対応されていない</div>
+            <div class="fragment">・アトミック・コミットをサポートしない。複数のファイルを同時にコミットした場合、CVSではそれぞれのファイルを一つずつコミットしたものとして扱うため、アトミック性を満たすことができない</div>
+            <div class="fragment">・リリース用のタグ付けのためのExcel管理台帳が必要</div>
+            <div class="fragment">・タグ付けするまでリリース可能なコードにならない</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■Subversion</h2>
+          <ul>
+            <div class="fragment">・CVSの問題点を解決すべく開発されたのがSubversion</div>
+            <div class="fragment">・ディレクトリの移動や削除をサポートしている。ファイル名やソースツリーの構造が決まらないうちからバージョン管理できる</div>
+            <div class="fragment">・リビジョン番号はソースツリー全体に対して振られ、誰かがソースツリーのどこかのファイルを更新する度に番号が増える(CVSではファイル毎にリビジョン番号がつけられている)</div>
+            <div class="fragment">・作業ディレクトリ内に、最後にソースリポジトリと同期をとったときのファイルのコピーを持っているため、DIFFが高速にできる(ソースリポジトリにアクセスしない)</div>
+          </ul>
+        </section>
+        <section>
+          <ul>・ファイルの差分送信が効率よく行なわれるため、プアなネットワーク環境で利用したときに快適
+            <div class="fragment">・SSHによるソースリポジトリとの通信を標準でサポート。インターネット経由で利用してもセキュリティを容易に保てる</div>
+            <div class="fragment">・WebDAVをバックエンドとして使うことができる。Apache HTTP ServerなどのWebDAVをサポートするHTTPサーバを経由して、WebDAVプロトコルを用いてSubversionサーバとSubversionクライアントが通信するという形態が使える</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■SVNのダメな点(システム面)</h2>
+          <ul>
+            <div class="fragment">・SVNのブランチは単なるファイルコピー</div>
+            <div class="fragment">・ブランチを切ったあとのコミットの変更履歴しか残らない</div>
+            <div class="fragment">・ブランチの流れがまったく見えない(どこから発生したのかもわからない)</div>
+            <div class="fragment">・マージがうまくできない</div>
+            <div class="fragment">・ブランチ同士をマージする気が見えない</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■SVNのダメな点(運用面)</h2>
+          <ul>
+            <div class="fragment">・一人のとき、少数人数ならうまくいく</div>
+            <div class="fragment">・複数人になったらそうもいかない</div>
+            <div class="fragment">・リソースコントロールでなんとかできるけど・・・</div>
+            <div class="fragment">・「昇格モデル」を採用せざるをえない</div>
+            <div class="fragment">→リリースのたびにブランチを作り、作ったブランチから更にブランチを作る</div>
+            <div class="fragment">・昇格モデルは、開発者にとってとても開発しづらい</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■git</h2>
+          <ul>
+            <div class="fragment">・分散型バージョン管理システム</div>
+            <div class="fragment">・first commitは2005年12月21日（10年前）</div>
+            <div class="fragment">・Initial revision of "git", the information manager from hell</div>
+            <div class="fragment">・各ユーザのワーキングディレクトリに、全履歴を含んだリポジトリの完全な複製が作られる</div>
+            <div class="fragment">・ネットワークにアクセスできないなどの理由で中心リポジトリにアクセスできない環境でも履歴の調査や変更の記録といった作業を行うことができる</div>
+          </ul>
+        </section>
+        <section>
+          <ul>・状態を記録する
+            <div class="fragment">・CVSは悪い見本</div>
+            <div class="fragment">・必然的にCVSの上位互換であるSVNは悪いものである</div>
+            <div class="fragment">・データ破壊に対する強力な抑止機能。データ破壊は、偶然によるものと意図的なものの両方を想定している</div>
+          </ul>
+        </section>
+        <section>
+          <h3>■構成管理パターン</h3>
+          <h4>(Software Configuration Management Patterns)</h4>
+          <ul>
+            <div class="fragment">・ソースコードのバージョンや構成をどのように管理するか</div>
+            <div class="fragment">・Stephen P. Berczuk氏とBrad Appleton氏がまとめたパターン(2006年10月)</div>
+            <div class="fragment">・ソースコードのファイルの集まりである「コードライン」をどのように管理するかについて、全部で16種類のパターンを定義</div>
+          </ul>
+        </section>
+        <section><img src="./img/hyo01.jpg"></section>
+        <section>
+          <ul>・すでにSVNでも実装されているものもある。
+            <div class="fragment">・SVNでできてない(できない)ものを説明</div>
+            <div class="fragment">・メインライン</div>
+            <div class="fragment">・リリースライン</div>
+            <div class="fragment">・タスクブランチ</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■メインライン</h2>
+          <ul>
+            <div class="fragment">・コードラインの本流となる「メインライン」を決定し、ソース・ファイルを修正したら、必ず修正した部分をメインラインに戻す（マージする）こと</div>
+            <div class="fragment">・ブランチのコードラインに修正を加え続けることを避ける</div>
+            <div class="fragment">・そうしなければ，ブランチがいくつも出来上がり（ブランチの段構造）、コードラインを適切に管理できなくなる</div>
+            <div class="fragment">・SVNではブランチを作成して戻すということが困難だった。</div>
+            <div class="fragment">・適切なブランチ戦略の方法</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■ブランチ戦略をしっかり定めないと・・・</h2>
+          <ul>
+            <div class="fragment">・開発後、二次開発と運用が行われるケース</div>
+            <div class="fragment">・二次開発では現行のブランチに</div>
+            <div class="fragment">・運用はバグフィックスが行われる</div>
+            <div class="fragment">・同じブランチに両方の改修を入れてしまうと二次開発の修正が入ってしまうためリリースができない。</div>
+            <div class="fragment">・仕方ないので本番サーバーのソースを直接変更する。コミットし忘れる。次のリリース時にデグレ。</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■ブランチ戦略をしっかり定めないと・・・その2</h2>
+          <ul>
+            <div class="fragment">・保守ブランチと開発ブランチを2か月後マージ</div>
+            <div class="fragment">・コンフリクトでまったく内容が違っていた</div>
+            <div class="fragment">・リリース延期</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■ブランチ戦略をしっかり定めないと・・・その3</h2>
+          <ul>
+            <div class="fragment">・ブランチが乱立する(昇格モデルに近い)</div>
+            <div class="fragment">・改修や機能追加をどこのブランチに入れればいいのかわからなくなる</div>
+            <div class="fragment">・バージョン管理ツールを導入してるのにダメなパターン</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■メインラインモデルによる構成管理</h2>
+          <ul>
+            <div class="fragment">リリース後のシステムは最低二つのバージョンのソフトウェアを維持する必要がある</div>
+            <div class="fragment">・保守運用</div>
+            <div class="fragment">・開発</div>
+          </ul>
+        </section>
+        <section>
+          <h2>■メインラインパターン基礎</h2>
+          <ul>
+            <div class="fragment">・メインラインは常にビルドできる状態を保つ</div>
+            <div class="fragment">・ブランチは必ずメインラインから作成する</div>
+            <div class="fragment">・ブランチのブランチは作成せず、必ずメインラインから派生させる</div>
+            <div class="fragment">・ブランチを作成したらなるべく早くメインラインに戻す</div>
+          </ul>
+        </section>
+        <section>
+          <h4>■A successfull git branching model(git-flow)</h4>
+          <ul>
+            <div class="fragment">master:タグ専用</div>
+            <div class="fragment">feature:新機能開発(大き目)。developから派生</div>
+            <div class="fragment">develop:軽微な開発＋featureをマージ</div>
+            <div class="fragment">release:リリースしてタグ打ち。developから派生&マージ</div>
+            <div class="fragment">hotfix:緊急なバグなどの修正。masterから派生。developとmasterに反映する</div>
+          </ul>
+        </section>
+        <section><img src="./img/sgbm.png" width="60%"></section>
+        <section>
+          <h2>●メインラインパターン例1</h2>
+          <ul>
+            <div class="fragment">＜Eggs＞</div>
+            <div class="fragment">master:直コミット禁止<br>design:制作向けブランチ。デザイン検証環境に自動的にデプロイされる<br>feature:いわゆるタスクブランチ<br>pre_release:タスクブランチをまとめる<br>release:直コミット禁止</div>
+          </ul>
+        </section>
+        <section>
+          <h2>●メインラインパターン例2</h2>
+          <ul>
+            <div class="fragment">＜ヌーラボ＞</div>
+            <div class="fragment">master<br>beta:検証環境に自動的にデプロイする。<br>develop:開発ブランチ。タグ付けしてからリリースをこのブランチから行う。<br>package-master:パッケージ版の開発を行うブランチ。ASPには入らない機能改修を行うのでmasterにはマージされない。<br>feature:どのブランチでも行われる</div>
+          </ul>
+        </section>
+        <section>
+          <h2>●メインラインパターン例3</h2>
+          <ul>
+            <div class="fragment">＜redmine＞(亜流)</div>
+            <div class="fragment">master:開発はこちらでやり、リリースの際にチェリーピックする<br>stable1<br>stable2</div>
+          </ul>
+        </section>
+        <section>
+          <h1>THEND</h1>
+        </section>
+      </div>
+    </div>
+    <!-- script-->
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script type="text/coffeescript">
+      Reveal.initialize
+        controls: true
+        progress: true
+        history: true
+        center: true
+        
+        theme: Reveal.getQueryHash().theme # available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition or "default" # default/cube/page/concave/zoom/linear/fade/none
+        # Optional libraries used to extend on reveal.js
+        dependencies: [
+          {
+            src: "lib/js/classList.js",
+            condition: -> not document.body.classList
+          }
+          {
+            src: "plugin/markdown/marked.js"
+            condition: -> !!document.querySelector("[data-markdown]")
+          }
+          {
+            src: "plugin/markdown/markdown.js"
+            condition: -> !!document.querySelector("[data-markdown]")
+          }
+          {
+            src: "plugin/highlight/highlight.js"
+            async: true
+            callback: -> hljs.initHighlightingOnLoad()
+          }
+          {
+            src: "plugin/zoom-js/zoom.js"
+            async: true
+            condition: -> !!document.body.classList
+          }
+          {
+            src: "plugin/notes/notes.js"
+            async: true
+            condition: -> !!document.body.classList
+          }
+        ]
+    </script>
+  </body>
+</html>
