@@ -25,6 +25,8 @@ block content
     .fragment
      |主にJavaでWebアプリケーションを構築
      br
+     |レコチョクに入社してからは
+     br
      |検索エンジンの内製
      br
      |音源配信サーバの構築
@@ -34,15 +36,18 @@ block content
      |いま興味があるのはnode.js、Goあたり
   section
    h2 AWSって
-   u
-     |こちらをご覧ください
-    .fragment
-      a(href="https://aws.amazon.com/jp/","target=_blank") https://aws.amazon.com/jp/
+   .fragment
+       |こちらをご覧ください
+       br
+       a(href="https://aws.amazon.com/jp/","target=_blank") https://aws.amazon.com/jp/
+    aside(class="notes")
+      |ここでAWS知ってる人、使ったことある人聞いてみる。
   section
     h2 移行するにあたって
     .fragment どんなシステムを持っていったのか
     .fragment 様々な音楽配信サービスのバックエンドシステム
     .fragment 例えば検索とか決済処理とか会員管理を行うシステム
+    .fragment これらのシステムは冒頭のサービス全般に広く使われているシステムです！！
   section
     h4 アプリ開発しかしたことなかったメンバーがほとんど
     .fragment
@@ -54,17 +59,26 @@ block content
       br
       |etc...
     .fragment どうやんだっけ？？
-    .fragment 業務範囲や意識を変える事も重要   
+    .fragment 組織の業務範囲や個人の意識を変える事も重要
+    .fragment これらを約2年で移行させました。
+  section(style="text-align:left;")
+    h2 苦労した点
+    .fragment すでに動いているサービスをどう移行させるか（スタートアップではない苦労）
+    .fragment とにかくなんでも自由にできてしまうのがAWS
+    .fragment 各エンジニアがやりたいことと VS 組織として担保しなければいけないこと
+    .fragment スケジュールとAWS側の進化の折り合い
   section
     h2 素晴らしい動画がありますので是非見てください！
     iframe(width="560" height="315" src="https://www.youtube.com/embed/uWf7WdclIaQ" frameborder="0")
+    aside(class="notes")
+      |時間調整で適宜動画再生してみたりする。  
   section(style="text-align:left;")
     h2 使ってみて思うこと
-    .fragment pros
+    .fragment ・良かった点
     .fragment スケールアウト／アップ↔イン／ダウンが簡単にできる
     .fragment システム設計の幅が広がる
     .fragment 当然エンジニアとしてのスキルの幅も広がる
-    .fragment cons
+    .fragment ・しんどかった点
     .fragment 公式ドキュメントに書いて有ることが稀に間違っている
     .fragment 料金計算の予測がとても難しい
     .fragment 予告なしの仕様変更、機能追加があり常にウォッチしておく必要がある
@@ -79,7 +93,7 @@ block content
   section
     h1 AWSアカウント数
     br 
-    h1 114
+    h1 104
   section
     h1 EC2の台数
     br
@@ -91,6 +105,10 @@ block content
   section
     h1 コストの推移
     img(src="img/cost.png")
+    aside(class="notes")
+      |右肩上がりで増えていっている。（9月は途中なので凹んでる。）
+  section
+    h1 これらのシステムを40人を超えるエンジニアが日々開発／運用しています
   section 
     h1 結論
   section
@@ -107,6 +125,10 @@ block content
       |会員システムのDBを移行してみてどうだったか。（仮）
       br
       |Amazon　Auroraの利用事例を紹介予定
+    aside(class="notes")
+      |もしかしたらスペシャルゲストが来ていただけるかもしれません。
   section
     h1 ご清聴ありがとうございました。
+    aside(class="notes")
+      |質問などありましたらこのあとお気軽にどうぞ
 block script
