@@ -23,6 +23,7 @@ block content
         br
         |グループ長
     .fragment
+     br
      |主にJavaでWebアプリケーションを構築
      br
      |レコチョクに入社してからは
@@ -34,6 +35,9 @@ block content
      |マネージメントを少々
      br
      |いま興味があるのはnode.js、Goあたり
+    aside(class="notes")
+      |ちなみにこのプレゼン資料はreveal.js（リビール）を利用して作成しました。
+
   section
    h2 AWSって
    .fragment
@@ -41,7 +45,7 @@ block content
        br
        a(href="https://aws.amazon.com/jp/","target=_blank") https://aws.amazon.com/jp/
     aside(class="notes")
-      |ここでAWS知ってる人、使ったことある人聞いてみる。
+      |ここでAWS知ってる人、使ったことある人聞いてみる。　　幅広く細部に至るコアクラウドインフラストラクチャサービス
   section
     h2 移行するにあたって
     .fragment どんなシステムを持っていったのか
@@ -61,12 +65,16 @@ block content
     .fragment どうやんだっけ？？
     .fragment 組織の業務範囲や個人の意識を変える事も重要
     .fragment これらを約2年で移行させました。
+    aside(class="notes")
+      |インフラ専門のグループとアプリを開発するグループがはっきりわけれれている状況から各ループに知識を持ったメンバーをアサインするなどの組織変更や開発するだけではなく運用もちゃんと見ていく意識付けが必要。
   section(style="text-align:left;")
     h2 苦労した点
     .fragment すでに動いているサービスをどう移行させるか（スタートアップではない苦労）
     .fragment とにかくなんでも自由にできてしまうのがAWS
     .fragment 各エンジニアがやりたいことと VS 組織として担保しなければいけないこと
     .fragment スケジュールとAWS側の進化の折り合い
+    aside(class="notes")
+      |既存と同等のサービスレベル、機能レベルを維持するのか、大量にあるデータをどう持っていくのか。　自由にやりたいが逆に基準がないと進められない。　例えばNASがないEFSが出るまで待つのか？
   section
     h2 素晴らしい動画がありますので是非見てください！
     iframe(width="560" height="315" src="https://www.youtube.com/embed/uWf7WdclIaQ" frameborder="0")
@@ -113,6 +121,8 @@ block content
     h1 結論
   section
     h1 やってよかった
+    aside(class="notes")
+      |インフラ的な知識の底上げによる、システム構築の質やスピードの向上だけでなく、他のCIやデプロイ含めてもっとより良い方法手段に取取り組もうという姿勢がメンバーにも浸透していっているんではないか
   section
     h1 次回予告
   section
